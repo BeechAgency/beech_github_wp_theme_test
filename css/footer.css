@@ -1,0 +1,19 @@
+footer {
+    width: 100%;
+    color: var(--black);
+    font-size: var(--fs-s2);
+    margin-top: 2rem;
+}
+
+footer a {
+    color: inherit;
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+    justify-content: flex-start;
+}
+
+footer img {
+    margin-right: 1rem;
+    max-width: 2.5rem;
+}

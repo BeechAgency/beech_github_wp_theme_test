@@ -1,0 +1,129 @@
+
+nav ul {
+    list-style: none;
+}
+
+nav ul ul {
+    padding-left: 1.25rem;
+}
+nav .inner > ul {
+    margin:  0;
+    padding: 0;
+    max-height: 100vh;
+    overflow: scroll;
+}
+nav .inner > ul > li {
+    padding-block: 1rem;
+    font-size: var(--fs-h6);
+    transition: 150ms ease-in-out all;
+}
+
+nav .inner > ul > li:first-child {
+    padding-top: 0;
+}
+nav .inner > ul > li:hover {
+    cursor: pointer;
+    /* background-color: var(--yellow); */
+}
+
+nav a:hover {
+    color: var(--yellow);
+}
+
+nav a {
+    transition: color 150ms ease;
+}
+
+nav li li {
+    padding-bottom: 1rem;
+    transition: 150ms ease-in-out all;
+}
+
+nav img {
+    max-width: 100%;
+    max-height: 8rem;
+    width: auto;
+}
+nav li.search {
+}
+nav input[type="search"] {
+    padding: 0.75rem 0;
+    border: 0 solid transparent;
+    outline: 0px solid transparent;
+    width: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12.697' height='12.697' viewBox='0 0 12.697 12.697'%3E%3Cg id='Group_6' data-name='Group 6' transform='translate(0.354)'%3E%3Cg id='Ellipse_1' data-name='Ellipse 1' transform='translate(3.343)' fill='none' stroke='rgba(21,23,30,0.45)' stroke-width='1'%3E%3Ccircle cx='4.5' cy='4.5' r='4.5' stroke='none'/%3E%3Ccircle cx='4.5' cy='4.5' r='4' fill='none'/%3E%3C/g%3E%3Cline id='Line_9' data-name='Line 9' y1='4.694' x2='4.694' transform='translate(0 7.649)' fill='none' stroke='rgba(21,23,30,0.45)' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E%0A");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 0rem) center;
+    background-size: 1.2rem 1.2rem;
+    transition: all 150ms linear;
+    border-bottom: 1px solid var(--white50);
+}
+nav input[type="search"]:focus {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12.697' height='12.697' viewBox='0 0 12.697 12.697'%3E%3Cg id='Group_6' data-name='Group 6' transform='translate(0.354)'%3E%3Cg id='Ellipse_1' data-name='Ellipse 1' transform='translate(3.343)' fill='none' stroke='rgba(21,23,30,0.0)' stroke-width='1'%3E%3Ccircle cx='4.5' cy='4.5' r='4.5' stroke='none'/%3E%3Ccircle cx='4.5' cy='4.5' r='4' fill='none'/%3E%3C/g%3E%3Cline id='Line_9' data-name='Line 9' y1='4.694' x2='4.694' transform='translate(0 7.649)' fill='none' stroke='rgba(21,23,30,0.0)' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E%0A");
+    border-bottom: 1px solid var(--yellow);
+    overflow: hidden;
+}
+
+button { cursor: pointer; }
+
+nav button {
+    background-color: transparent;
+    color: var(--black);
+    padding-inline: 0.5rem;
+    padding-block: 0.5rem;
+    border-radius: 2rem;
+    margin-top: 1.5rem;
+    transition: color 150ms ease, background-color 150ms ease, right 250ms ease-in-out;
+    border: solid 0px var(--black);
+    font-size: var(--base-font-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+nav button:hover {
+    background-color: var(--blue);
+    color: var(--white);
+}
+nav button {
+    position: absolute;
+    right: 0.75rem;
+    top: -1.125rem;
+    z-index: 1000;
+}
+
+nav.closed button {
+    right: -3rem;
+    color: var(--white);
+}
+
+nav .inner > ul > li > h4 > a {
+    position: relative;
+}
+nav .inner > ul > li > h4 a:after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: var(--el-width);
+    height: 2px;
+    border-bottom: 2px solid var(--el-color, yellow);
+
+    transition: all 100ms linear;
+}
+nav .inner > ul > li h4 {
+    --el-color : transparent;
+    --el-width : 20%;
+    transition: all 100ms linear;
+}
+nav .inner > ul > li.active h4 {
+    --el-color :
+    var(--blue);
+    --el-width : 100%;
+    color: var(--blue);
+    font-weight: var(--fw-medium);
+}
+nav .inner > ul > li li.active {
+    color: var(--blue);
+    font-weight: var(--fw-medium);
+}

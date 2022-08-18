@@ -1,0 +1,232 @@
+:root {
+    /* For sections */
+    --vertical-padding-base : 3rem;
+    --vpb : var(--vertical-padding-base); /* Because stuff writing the full thing out */
+
+    --padding-block : var(--vertical-padding-base);
+
+    /* Gutter is the horizontal gap along the side of the page, it's used to create a nice whitespace */
+    --gutter: 2rem; /* 20px @ 18px */
+    --gap : 1rem;
+    --row-gap : var(--vpb);
+
+    /* Max widths */
+    --max-width : 1440px;
+    --max-width-wide :  1280px;
+    --max-width-inner :  1140px;
+    --max-width-text : 960px;
+}
+
+* { box-sizing: border-box; }
+html, body { padding: 0; margin: 0; border: 0; }
+
+
+/* Sections break content up, it is the outermost element */
+section, .section:not(header) {
+    display: block;
+    margin: 0 auto;
+    padding: 6rem 0;
+}
+
+/*
+ * Structure and Grid
+ */
+/* A container's job is to contain things - so gutter and max width and positining */
+.container {
+    max-width: var(--max-width);
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+    display: block;
+}
+.container-fw {
+    max-width: 100%;
+    width: 100%;
+    margin: 0 auto;
+    display: block;
+}
+.container.mw-wide { max-width: var(--max-width-wide); }
+.container.mw-inner { max-width: var(--max-width-inner); }
+.container.mw-text { max-width: var(--max-width-text); }
+
+.container + .container {
+    margin-top: var(--vpb);
+}
+
+/* A rows job is to be a wrapper for the row of items, it puts stuff on a grid */
+.row {
+    /* width: 100%; */
+    --cols : 12;
+    --rows : 1;
+    row-gap: var(--row-gap);
+    column-gap: var(--gap);
+    grid-template-columns: repeat(var(--cols, 12), 1fr);
+    grid-template-rows: repeat(var(--rows, 1), 1fr);
+    display: grid;
+    grid-auto-flow: row;
+    justify-items: stretch;
+    align-items: stretch;
+    justify-content: space-between;
+    align-content: stretch;
+}
+
+
+
+
+.col { --col : 1; --row : auto; --start: auto; grid-column: var(--start) / span var(--col); grid-row: var(--row); }
+.col-2 { --col: 2; --row : auto; --start: auto; grid-column: var(--start) / span var(--col); grid-row: var(--row); }
+.col-3 { --col: 3; --row : auto; --start: auto; grid-column: var(--start) / span var(--col); grid-row: var(--row); }
+.col-4 { --col: 4; --row : auto; --start: auto; grid-column: var(--start) / span var(--col); grid-row: var(--row); }
+.col-5 { --col: 5; --row : auto; --start: auto; grid-column: var(--start) / span var(--col); grid-row: var(--row); }
+.col-6 { --col: 6; --row : auto; --start: auto; grid-column: var(--start) / span var(--col); grid-row: var(--row); }
+.col-7 { --col: 7; --row : auto; --start: auto; grid-column: var(--start) / span var(--col); grid-row: var(--row); }
+.col-8 { --col: 8; --row : auto; --start: auto; grid-column: var(--start) / span var(--col); grid-row: var(--row); }
+.col-9 { --col: 9; --row : auto; --start: auto; grid-column: var(--start) / span var(--col); grid-row: var(--row); }
+.col-10 { --col: 10; --row : auto; --start: auto; grid-column: var(--start) / span var(--col); grid-row: var(--row); }
+.col-11 { --col: 11; --row : auto; --start: auto; grid-column: var(--start) / span var(--col); grid-row: var(--row); }
+.col-12 { --col: 12; --row : auto; --start: auto; grid-column: var(--start) / span var(--col); grid-row: var(--row); }
+.col-a { --col : auto; --row : auto; --start: auto; grid-column: var(--start) / span var(--col); grid-row: var(--row); }
+
+/* Art of the col and positioning */
+.col-start-1 { grid-column-start : 1; }
+.col-start-2 { grid-column-start : 2; }
+.col-start-3 { grid-column-start : 3; }
+.col-start-4 { grid-column-start : 4; }
+.col-start-5 { grid-column-start : 5; }
+.col-start-6 { grid-column-start : 6; }
+.col-start-7 { grid-column-start : 7; }
+.col-start-8 { grid-column-start : 8; }
+.col-start-9 { grid-column-start : 9; }
+.col-start-10 { grid-column-start : 10; }
+.col-start-11 { grid-column-start : 11; }
+.col-start-12 { grid-column-start : 12; }
+
+
+.row.flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.flex .col-3 {
+    flex-basis: 25%;
+}
+.flex .col-4 {
+    flex-basis: 33.33%;
+}
+.flex .col-6 {
+    flex-basis: 50%;
+}
+
+
+/*
+ * Wrapper
+ */
+.wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+}
+.wrapper.v-center > .text-center {
+    width: 100%;
+}
+.wrapper.v-center {
+
+    justify-content: center;
+    height: 100%;
+}
+
+.wrapper.img img {
+    max-width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.wrapper.img-cover {
+    align-items: stretch;
+}
+.wrapper.img-cover img {
+    max-width: 100%;
+    display: block;
+
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+.wrapper.flex-row {
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.vh-100 {
+    min-height: 100vh;
+}
+.vh-100max {
+    max-height: 100vh;
+}
+section.v-center, .section.v-center {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/*
+ * Utilities
+ */
+ .text-center { text-align: center; }
+ .text-left { text-align: left; }
+ .text-right { text-align: right; }
+
+.vpb {
+    padding-top: var(--vpb);
+    padding-bottom: var(--vpb)
+}
+.vpb-1\/2 {
+    padding-top: calc(var(--vpb) / 2);
+    padding-bottom: calc(var(--vpb) / 2);
+}
+.vpb-1\/4 {
+    padding-top: calc(var(--vpb) / 4);
+    padding-bottom: calc(var(--vpb) / 4);
+}
+.gutter {
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+}
+.container.no-gutter, .no-gutter {
+    padding-left: 0;
+    padding-right: 0;
+}
+.container.no-gutter-right > :first-child {
+    padding-left: var(--gutter);
+}
+.container.no-gutter-right {
+    padding: 0;
+}
+.container.no-gutter-left > :last-child {
+    padding-right: var(--gutter);
+}
+.container.no-gutter-left {
+    padding: 0;
+}
+
+/* Side Scrolling */
+.side-scroller {
+    position: relative;
+}
+.scroller-track {
+    overflow-x: hidden;
+    display: flex;
+    position: sticky;
+    top:0;
+  }
+.scroller-track > section, 
+.scroller-track > .section {
+    min-width: 100vw;
+}
