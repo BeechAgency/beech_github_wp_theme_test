@@ -24,6 +24,7 @@ get_header();
 
 	</div>	
 </main><!-- #main -->
+<!-- HI EVERYBODY! -->
 
 <?php
 get_footer();
