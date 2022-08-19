@@ -385,7 +385,7 @@ add_action( 'after_setup_theme', function() {
 
 /* 
  * Automatic theme updates from the GitHub repository
- * Care of https://gist.github.com/slfrsn/a75b2b9ef7074e22ce3b.
+ * Care of https://gist.github.com/slfrsn/a75b2b9ef7074e22ce3b. modified by me
  */ 
 
 add_filter('pre_set_site_transient_update_themes', 'automatic_GitHub_updates', 100, 1);
@@ -398,8 +398,11 @@ function automatic_GitHub_updates($data) {
   $repo = 'beech_github_wp_theme_test'; // Repository name as it appears in the URL
   // Get the latest release tag from the repository. The User-Agent header must be sent, as per
   // GitHub's API documentation: https://developer.github.com/v3/#user-agent-required
-  $file = @json_decode(@file_get_contents('https://api.github.com/repos/'.$user.'/'.$repo.'/releases/latest', false,
-      stream_context_create(['http' => ['header' => "User-Agent: ".$user."\r\n"]])
+  $file = json_decode(file_get_contents('https://api.github.com/repos/'.$user.'/'.$repo.'/releases/latest', false,
+      	stream_context_create(
+			['http' => ['header' => "User-Agent: ".$user."\r\n"],
+			'ssl' => ["verify_peer"=>false, "verify_peer_name"=>false]]
+		)
   ));
   if($file) {
 	$update = filter_var($file->tag_name, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
@@ -411,9 +414,76 @@ function automatic_GitHub_updates($data) {
 	      // This way you can still use tags like v1.1 or ver1.1 if desired
 	      'new_version' => $update,
 	      'url'         => 'https://github.com/'.$user.'/'.$repo,
-	      'package'     => $file->assets[0]->browser_download_url,
+	      'package'     => $file->zipball_url,
       );
     }
   }
   return $data;
+}
+
+
+
+function debug_GitHub_updates() {
+	// Theme information
+	$theme   = get_stylesheet(); // Folder name of the current theme
+	$current = wp_get_theme()->get('Version'); // Get the version of the current theme
+	// GitHub information
+	$user = 'BeechAgency'; // The GitHub username hosting the repository
+	$repo = 'beech_github_wp_theme_test'; // Repository name as it appears in the URL
+	// Get the latest release tag from the repository. The User-Agent header must be sent, as per
+	// GitHub's API documentation: https://developer.github.com/v3/#user-agent-required
+
+	$file = json_decode(file_get_contents('https://api.github.com/repos/'.$user.'/'.$repo.'/releases/latest', false,
+		stream_context_create(['http' => ['header' => "User-Agent: ".$user."\r\n"], 'ssl' => ["verify_peer"=>false, "verify_peer_name"=>false]])
+	));
+	
+	$output = array();
+	$output['prefile'] = 'THIS IS PREFILE';
+	
+	if($file) {
+		
+		$update = filter_var($file->tag_name, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+		// Only return a response if the new version number is higher than the current version
+		// 
+		$output['update']  = $update;
+			
+		if($update > $current) {
+		  $output['themedata'] = array(
+			  'theme'       => $theme,
+			  // Strip the version number of any non-alpha characters (excluding the period)
+			  // This way you can still use tags like v1.1 or ver1.1 if desired
+			  'new_version' => $update,
+			  'url'         => 'https://github.com/'.$user.'/'.$repo,
+			  'package'     => $file->zipball_url,
+		  );
+		}
+	} else {
+		$output['notheme'] = 'No file here';
+	}
+	
+	$output['postfile'] = 'THIS IS AFTER THE FILE';
+
+	$output['theme'] = $theme;
+	$output['current'] = $current;
+
+	$output['user'] = $user;
+	$output['repo'] = $repo;
+	$output['file'] = $file;
+	
+	
+	echo '<div style="color:white; position: fixed; top: 5rem; left: 5rem; background-color: black; overflow: scroll; padding: 10px; max-width: 80vw; max-height: 80vh;">';
+	var_dump($output);
+	/*
+	var_dump(
+		file_get_contents(
+			'https://api.github.com/repos/'.$user.'/'.$repo.'/releases/latest', 
+			false,
+			stream_context_create(
+				['http' => ['header' => "User-Agent: ".$user."\r\n"],
+				 'ssl' => ["verify_peer"=>false, "verify_peer_name"=>false]
+				]
+			)
+		)
+	);*/
+	echo '</div>';
 }
